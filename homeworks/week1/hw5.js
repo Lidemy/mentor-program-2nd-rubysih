@@ -1,7 +1,10 @@
 function join(str, concatStr) {
     var output='';
     for(var i=0;i<str.length;i++){
-        output+=str[i]+concatStr;
+        output+=str[i];
+        if(i!==str.length-1){
+            output+=concatStr;            
+        }
     }
     return output;
 }
