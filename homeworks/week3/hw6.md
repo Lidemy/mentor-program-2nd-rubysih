@@ -11,7 +11,7 @@
 - margin : 外距，是往外稱，與其他元素的距離。
 
 ## 請問 display: inline, block 跟 inline-block 的差別是什麼？
-- inline : 無法設定元素寬高及內外距。
+- inline : 無法設定元素寬高及上下的內外距，為 <span> 、<a> 、<img> 等的預設屬性。
 - block : 會自動換行(自動把marign撐滿)，可設定元素寬高。
 - inline-block : 不會自動換行，可並排，可設定元素寬高。
 
