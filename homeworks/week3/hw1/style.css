@@ -92,7 +92,7 @@ p{
 }
 .item{
     display: inline-block;
-    width: calc( 100% / 3 - 23px);
+    width: calc( 100% / 3 - 25px);
     margin: 0 10px;
 }
 .detail{
