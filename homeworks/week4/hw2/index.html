@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="CH-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    <meta charset="UTF-8">
+    <title>程式導師實驗計畫第二期報名表單</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="bg-top"></div>
+        <div class="form__block">
+            <h1>程式導師實驗計畫第二期報名表單</h1>
+            <p class="description">填完之後請務必按照文章內的說明再寄信給我，才算報名成功喔</p>
+            <h4 class="important">*必填</h4>
+            <form onsubmit="return formsubmit()">
+                <div class="row">
+                    電子郵件地址 <span class="important">*</span><br><input type="email" placeholder="你的電子郵件" class="email required">
+                    <span class="important required_display">這是必填問題</span>
+                </div>
+                <div class="row">
+                    暱稱 <span class="important">*</span><br><input type="text" placeholder="您的回答" class="nick_name required">
+                    <span class="important required_display">這是必填問題</span>
+                </div>
+                <div class="row">
+                    現在的職業 <br><input type="text" placeholder="您的回答" class="work">
+                </div>
+                <div class="row">
+                    是否有程式相關背景？ <br><input type="text" placeholder="您的回答" class="background">
+                </div>
+                <div class="row">
+                    其他 <br><input type="text" placeholder="您的回答" class="others">
+                </div>
+                <input type="submit"/>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        並未認可或建立這項內容。 檢舉濫用情形 - 服務條款 - 其他條款
+        <div>表單</div>
+    </footer>
+</body>
+</html>
