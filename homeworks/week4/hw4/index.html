@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="CH-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    <title>hw4</title>
+    <style>
+        .content{
+            padding: 15px;
+            background-color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">content</div>
+    <script>
+        function q(element){
+            return document.querySelector(element);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const content = q('.content'); 
+            content.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
