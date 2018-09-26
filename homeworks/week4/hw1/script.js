@@ -38,7 +38,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 show.innerText=num1*num2;                            
                 break;
             case 4:
-                (num2!==0)?show.innerText=num1/num2:alert('無法除以0');      
+                if(num2!==0){
+                    show.innerText=num1/num2
+                }else{
+                    alert('無法除以0'); 
+                }     
                 break;
         }
     });

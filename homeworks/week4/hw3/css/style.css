@@ -36,25 +36,21 @@ body{
 .stream-info{
     height: 50px;
     background:#222;
-    /*opacity:0.8;*/
     padding: 10px;
     display: flex;
 }
 .info-img{
-    /*float: left;*/
     background:url(../images/reporter.png) no-repeat center;
     border-radius: 50%;
     width: 50px;
     height: 50px;
     margin-right: 10px;
     background-size: cover !important;
-    background-position: center !important;
 }
 .stream-info .info-detail{
     width: calc( 100% - 60px);
 }
 .stream-info p{
-    /*float: right;*/
     overflow: hidden;
     color: #fff;
     height: 25px;
@@ -65,9 +61,6 @@ body{
 .stream-block a{
     text-decoration: none;
 }
-/*.channel{margin-top: 10px;}
-.reporter{margin-bottom: 10px;}*/
-
 
 /*rwd*/
 

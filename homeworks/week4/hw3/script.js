@@ -28,8 +28,8 @@ function　setStream(stream_data){ //setting stream-block and clone
     }
 
     stream.children[0].setAttribute("href",stream_data.channel.url) //stream url
-    stream.children[0].children[0].style.background=`url(${stream_data.preview.large})`;  //直播畫面
-    stream.children[0].children[1].children[0].style.background=`url(${stream_data.channel.logo})`; //channel logo
+    stream.children[0].children[0].style.backgroundImage=`url(${stream_data.preview.large})`;  //直播畫面
+    stream.children[0].children[1].children[0].style.backgroundImage=`url(${stream_data.channel.logo})`; //channel logo
     stream.children[0].children[1].children[1].children[0].innerText=stream_data.channel.status; //直播標題
     stream.children[0].children[1].children[1].children[1].innerText=stream_data.channel.display_name; //channel name
     
