@@ -15,11 +15,14 @@
     <div class="content">content</div>
     <script>
         function q(element){
-            return document.querySelector(element);
+            return{
+                show:()=>{document.querySelector(element).style.display = 'block'},
+                hide:()=>{document.querySelector(element).style.display = 'none'}
+            }
         }
         document.addEventListener('DOMContentLoaded', function () {
             const content = q('.content'); 
-            content.style.display = 'none';
+            content.hide();
         });
     </script>
 </body>

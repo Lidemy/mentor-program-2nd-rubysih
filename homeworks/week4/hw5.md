@@ -2,7 +2,7 @@
 Document Object Model，會將 HTML 文件定義為樹狀結構，每個元素都是一個節點，讓 javascript 可以存取並控制 HTML。
 
 ## 什麼是 Ajax？
-透過瀏覽器提供的 API，來達到不換業就跟 server 溝通。
+透過瀏覽器提供的 API，來達到不換頁就跟 server 溝通。
 
 ## HTTP method 有哪幾個？有什麼不一樣？
 - GET : 最常用的方法之一，用來存取資料。
