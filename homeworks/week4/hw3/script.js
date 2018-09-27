@@ -26,12 +26,13 @@ function　cloneStream(stream_data){ //clone stream block
     if(stream_data!==data.streams[0]){
         var cln = stream.cloneNode(true); 
         setStream(cln,stream_data);
+        document.querySelector('.block-container').append(cln);
     }else{
         setStream(stream,stream_data);        
     } 
-    if(stream_data!==data.streams[0]){
-        document.querySelector('.block-container').append(cln);
-    }
+    // if(stream_data!==data.streams[0]){
+        
+    // }
 }
 function　setStream(stream_block,stream_data){ //setting stream-block
     stream_block.children[0].setAttribute("href",stream_data.channel.url) //stream url
