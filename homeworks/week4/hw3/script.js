@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let data;
     getStream(function(data){                    
         for(let i=0;i<20;i++){
-            setStream(data.streams[i]);
+            cloneStream(data.streams[i]);
         }
     });
 })
@@ -21,20 +21,23 @@ function getStream(callback){
     };
     request.send();
 }
-function　setStream(stream_data){ //setting stream-block and clone
+function　cloneStream(stream_data){ //clone stream block
     const stream=document.querySelector('.stream-block');
     if(stream_data!==data.streams[0]){
-        var cln = stream.cloneNode(true);                
-    }
-
-    stream.children[0].setAttribute("href",stream_data.channel.url) //stream url
-    stream.children[0].children[0].style.backgroundImage=`url(${stream_data.preview.large})`;  //直播畫面
-    stream.children[0].children[1].children[0].style.backgroundImage=`url(${stream_data.channel.logo})`; //channel logo
-    stream.children[0].children[1].children[1].children[0].innerText=stream_data.channel.status; //直播標題
-    stream.children[0].children[1].children[1].children[1].innerText=stream_data.channel.display_name; //channel name
-    
+        var cln = stream.cloneNode(true); 
+        setStream(cln,stream_data);
+    }else{
+        setStream(stream,stream_data);        
+    } 
     if(stream_data!==data.streams[0]){
-        console.log('clone',stream_data.channel.display_name);
         document.querySelector('.block-container').append(cln);
     }
+}
+function　setStream(stream_block,stream_data){ //setting stream-block
+    stream_block.children[0].setAttribute("href",stream_data.channel.url) //stream url
+    stream_block.children[0].children[0].style.backgroundImage=`url(${stream_data.preview.large})`;  //直播畫面
+    stream_block.children[0].children[1].children[0].style.backgroundImage=`url(${stream_data.channel.logo})`; //channel logo
+    stream_block.children[0].children[1].children[1].children[0].innerText=stream_data.channel.status; //直播標題
+    stream_block.children[0].children[1].children[1].children[1].innerText=stream_data.channel.display_name; //channel name
+    
 }
