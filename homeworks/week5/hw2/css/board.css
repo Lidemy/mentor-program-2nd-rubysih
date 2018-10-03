@@ -25,6 +25,7 @@
 }
 a{
     text-decoration: none;
+    color: #000;
 }
 input[type=text],textarea,input[type=password]{
     padding: 5px ;
@@ -132,6 +133,38 @@ header a{
 .block h1{
     margin-bottom: 20px;
     font-size: 24px;
+}
+
+/* page */
+.page{
+    height: 50px;
+    text-align: center;
+}
+.page span{
+    font-size: 24px;
+    font-weight: bold;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    width: 30px;
+    display: inline-block;
+    margin: 5px 10px;
+    padding: 4px;
+}
+.page a{
+    display: block;
+}
+.page span a:hover{
+    color: #fff;
+    background-color: #006ac6;
+}
+.page span:hover{
+    background-color: #006ac6;
+}
+.page .now{
+    background-color: #006ac6;
+}
+.page .now a{
+    color: #fff;
 }
 
 
