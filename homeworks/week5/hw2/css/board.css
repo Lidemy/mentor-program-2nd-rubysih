@@ -1,0 +1,152 @@
+.container{
+    width: 100%;
+    font-size: 16px;
+    font-family: Arial, Helvetica,"微軟正黑體";
+    margin-top: 70px;
+}
+
+/* common */
+.display__none{
+    display: none !important;
+}
+.warning{
+    color: red;
+}
+.btn{
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    background-color: #006ac6;
+    border-radius: 3px;
+}
+a{
+    text-decoration: none;
+}
+input[type=text],textarea,input[type=password]{
+    padding: 5px ;
+    border-width: 1.5px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: block;
+    width: 80%;
+    margin: auto;
+}
+textarea{
+    resize: none;
+}
+/* header */
+header{
+    height: 50px;
+    width: 100%;
+    font-weight: bolder;
+    font-size: 20px;
+    background-color: #006ac6;
+    padding:0 40px;
+    text-align: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}
+header li{
+    display: inline-block;
+    padding: 0 20px;
+    line-height: 50px;
+}
+header a{
+    color: #fff;
+}
+
+/* 主留言 */
+.message__block,.new__message,.block{
+    width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 5px; 
+    box-sizing: border-box;
+}
+.info p{
+    display: block;
+    padding-bottom: 8px;
+}
+.name{
+    font-size: 20px;
+    font-weight: bold;
+    color: #006ac6;
+}
+.time{
+    color: #aaa;
+}
+.content{
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+/* 子留言 */
+.reply__block{
+    margin: 10px 0 10px 40px;
+    padding: 20px;
+    background-color: #e3f0ff;
+    border-radius: 5px;
+
+}
+.reply__block .content{
+    background-color: #f9f9f9;
+}
+.reply__block .info ~ .info{
+    margin-top: 20px;
+}
+
+
+/* 新增留言 */
+.new__message{
+    position: relative;
+    padding-bottom: 50px;
+}
+.new__message input[type=text]{
+    margin-bottom: 10px;
+}
+.btn__submit{
+    position: absolute;
+    bottom: 10px;
+    right: calc( 10% + 20px );
+}
+.reply__block .new__message{
+    width: auto;
+    background-color: #f9f9f9;
+    border: none;
+    margin: 0 auto;
+}
+
+/* 註冊.登入.登出 */
+.block{
+    position: relative;
+    padding-bottom: 50px;
+}
+.block h1{
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+
+/*rwd*/
+
+/*** width < 850px ***/
+@media (max-width: 850px){
+    .message__block,.new__message,.block{
+        width: 80%;
+    }
+    input[type=text], textarea, input[type=password]{
+        width: 90%;
+        margin: 5px auto;
+    }
+    .btn__submit{
+        right: calc( 5% + 10px );
+    }
+}

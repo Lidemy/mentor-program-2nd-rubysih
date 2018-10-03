@@ -1,0 +1,78 @@
+<?php
+    require_once('conn.php')
+    // require_once('n.php')
+?>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>留言板</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/board.css">
+</head>
+<body>
+    <header>
+        <ul>
+            <li>
+                    <a href="login.php">登入</a>
+                </li>
+                <li>
+                    <a href="register.php">註冊</a>
+                </li>
+                <li>
+                    <a href="logout.php" class="">登出</a>
+                </li>
+        </ul>
+    </header>
+    <div class="container">
+        <div class="new__message">
+            <form action="/board/new_message.php" method='POST'>
+                暱稱 : <input type="text" name='nickname'>
+                內容 : <textarea name="content" id="content" cols="30" rows="5"></textarea>
+                <input type="submit" value='送出' class='btn btn__submit'>
+            </form>
+        </div>
+        <div class="message__block">
+            <div class="info">
+                <p class="name">ruby</p>
+                <p class="time">2018-01-06 16:16</p>
+            </div>
+            <div class="content">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem esse modi provident omnis iure,
+            </div>
+            <div class="reply__block">
+                <div class="info">
+                    <p class="name">ruby</p>
+                    <p class="time">2018-01-06 16:16</p>
+                </div>
+                <div class="content">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem esse modi provident omnis iure,
+                </div>
+                <div class="info">
+                    <p class="name">ruby</p>
+                    <p class="time">2018-01-06 16:16</p>
+                </div>
+                <div class="content">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem esse modi provident omnis iure,
+                </div>
+                <div class="info">
+                    <p class="name">ruby</p>
+                    <p class="time">2018-01-06 16:16</p>
+                </div>
+                <div class="content">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem esse modi provident omnis iure,
+                </div>
+                <div class="new__message">
+                    <form action="/board/new_message.php" method='POST'>
+                        暱稱 : <input type="text" name='nickname'>
+                        內容 : <textarea name="content" id="content" cols="30" rows="5"></textarea>
+                        <input type="submit" value='送出' class='btn btn__submit'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
