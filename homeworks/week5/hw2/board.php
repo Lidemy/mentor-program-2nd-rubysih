@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <?php
+    <?php   //檢測是否為登入狀態
         if(!isset($_COOKIE["member_id"])) {
             $login=false;
         } else {
@@ -45,6 +45,11 @@
     </header>
     
     <div class="container">
+        <?php
+            if(isset($_GET['status'])){
+                echo '<h1 class="warning">'.$_GET['status'].'</h1>';
+            }
+        ?>
         <div class="new__message">
             <form action="/board/new_message.php" method='POST'>
                 暱稱 : <input type="text" name='nickname' 
@@ -53,11 +58,7 @@
                 ?> readonly>
                 內容 : <textarea name="content" id="content" cols="30" rows="5"></textarea>
                 <input type="submit" value='送出' class='btn btn__submit'>
-                <?php
-                    if(isset($_GET['status'])){
-                        echo '<h1 class="warning">'.$_GET['status'].'</h1>';
-                    }
-                ?>
+                
             </form>
         </div>
         <?php   //撈取留言紀錄
