@@ -42,7 +42,7 @@
                     echo "Error: " . $sql_addUser . "<br>" . $conn->error;
                 }
                 header('Location: board.php');
-            }else{echo '<h1>註冊失敗!</h1>';}
-        }else{echo '<h1>註冊失敗!</h1>';}
+            }else{echo '<h1 class="warning">註冊失敗!</h1>';}
+        }else{echo '<h1 class="warning">註冊失敗!</h1>';}
     }
 ?>
