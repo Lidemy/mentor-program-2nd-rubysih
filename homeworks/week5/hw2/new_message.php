@@ -9,7 +9,7 @@
         }else{
             $parent = 0;
         }
-        $sql = "INSERT INTO message_board (nickname,content,parent) VALUES ('$name','$content',$parent)";
+        $sql = "INSERT INTO rubysih_messages (nickname,content,parent) VALUES ('$name','$content',$parent)";
         if ($conn->query($sql) !== TRUE) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }

@@ -43,8 +43,8 @@
                 }
                 header('Location: board.php');
 
-            }else{echo '<h1>登入失敗!</h1>';}
+            }else{echo '<h1 class="warning">登入失敗!</h1>';}
             
-        }else{echo '<h1>登入失敗!</h1>';}
+        }else{echo '<h1 class="warning">登入失敗!</h1>';}
     }
 ?>

@@ -11,6 +11,7 @@
 }
 .warning{
     color: red;
+    text-align: center;
 }
 .btn{
     height: 30px;
