@@ -69,7 +69,7 @@
         </div>
         <?php   //撈取留言紀錄
             $pageSize = 10; //一頁幾筆資料
-            $result_sum = $conn->query("SELECT COUNT(*)  as sum FROM message_board	");
+            $result_sum = $conn->query("SELECT COUNT(*)  as sum FROM rubysih_messages	");
             $data = $result_sum->fetch_assoc();
             $pageSum = ceil($data['sum']/10);   //總共幾頁
             if(isset($_GET['pageNow'])){    //設定目前頁數
@@ -77,8 +77,8 @@
             }else{
                 $pageNow=1;
             }
-            
-            $sql = "SELECT * FROM message_board WHERE parent = 0 ORDER BY date DESC LIMIT ".($pageNow-1)*$pageSize.", ".$pageNow*$pageSize;
+
+            $sql = "SELECT messages.id, messages.content, users.nickname, messages.date FROM rubysih_messages as messages LEFT JOIN rubysih_users as users ON messages.users_id = users.id WHERE parent = 0 ORDER BY date DESC LIMIT ".($pageNow-1)*$pageSize.", ".$pageNow*$pageSize;
             
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
@@ -99,7 +99,7 @@
                         <div class="reply__block">
                     ';
                     //撈取子留言
-                    $sql_child = "SELECT * FROM message_board WHERE parent = " . $row["id"] . " ORDER BY date DESC";
+                    $sql_child = "SELECT messages.id, messages.content, users.nickname, messages.date FROM rubysih_messages as messages LEFT JOIN rubysih_users as users ON messages.users_id = users.id WHERE parent = " . $row["id"] . " ORDER BY date DESC";
                     $result_child = $conn->query($sql_child);
                     if ($result_child->num_rows > 0) {
                         while($row_child = $result_child->fetch_assoc()) {
