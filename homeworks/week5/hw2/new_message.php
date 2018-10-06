@@ -9,7 +9,13 @@
         }else{
             $parent = 0;
         }
-        $sql = "INSERT INTO rubysih_messages (nickname,content,parent) VALUES ('$name','$content',$parent)";
+        $sql_users="SELECT * FROM rubysih_users WHERE nickname = '$name'";
+        $result_users = $conn->query($sql_users);
+            if ($result_users->num_rows > 0) {
+                $row = $result_users->fetch_assoc();
+                $users_id = $row["id"];
+            }
+        $sql = "INSERT INTO rubysih_messages (users_id,content,parent) VALUES ('$users_id','$content',$parent)";
         if ($conn->query($sql) !== TRUE) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
