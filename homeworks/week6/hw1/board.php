@@ -20,9 +20,14 @@
         } else {
             $login=true;
             $session_id=$_COOKIE["member_id"];
-            $result = $conn->query("SELECT users.nickname  FROM rubysih_users_certificate as users_certificate LEFT JOIN rubysih_users as users ON users_certificate.username = users.username  WHERE users_certificate.session_id='$session_id'");
-            $data = $result->fetch_assoc();
-            $nickname=$data['nickname'];
+            $stmt = $conn->prepare("SELECT users.nickname  FROM rubysih_users_certificate as users_certificate LEFT JOIN rubysih_users as users ON users_certificate.username = users.username  WHERE users_certificate.session_id=?");
+            $stmt->bind_param("s", $session_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $nickname=$row['nickname'];
+            }
         }
     ?>
     <header>
@@ -72,15 +77,18 @@
         </div>
         <?php   //撈取留言紀錄
             $pageSize = 10; //一頁幾筆資料
-            $result_sum = $conn->query("SELECT COUNT(*)  as sum FROM rubysih_messages WHERE delete_status != 1");
-            $data = $result_sum->fetch_assoc();
-            $pageSum = ceil($data['sum']/10);   //總共幾頁
+            $stmt = $conn->prepare("SELECT COUNT(*)  as sum FROM rubysih_messages WHERE delete_status != 1 AND parent = 0");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $pageSum = ceil($row['sum']/10);   //總共幾頁
+            }
             if(isset($_GET['pageNow'])){    //設定目前頁數
                 $pageNow = $_GET['pageNow'];   
             }else{
                 $pageNow=1;
             }
-
             $sql = "SELECT messages.id, messages.content, users.nickname, messages.date FROM rubysih_messages as messages LEFT JOIN rubysih_users as users ON messages.users_id = users.id WHERE parent = 0 AND delete_status != 1 ORDER BY date DESC LIMIT ".($pageNow-1)*$pageSize.", ".$pageNow*$pageSize;
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
@@ -106,8 +114,11 @@
                         <div class="reply__block">
                     ';
                     //撈取子留言
-                    $sql_child = "SELECT messages.id, messages.content, users.nickname, messages.date FROM rubysih_messages as messages LEFT JOIN rubysih_users as users ON messages.users_id = users.id WHERE parent = " . $row["id"] . " AND delete_status != 1 ORDER BY date DESC";
-                    $result_child = $conn->query($sql_child);
+
+                    $stmt_child = $conn->prepare("SELECT messages.id, messages.content, users.nickname, messages.date FROM rubysih_messages as messages LEFT JOIN rubysih_users as users ON messages.users_id = users.id WHERE parent = ? AND delete_status != 1 ORDER BY date DESC");
+                    $stmt_child->bind_param("i", $row["id"]);
+                    $stmt_child->execute();
+                    $result_child = $stmt_child->get_result();
                     if ($result_child->num_rows > 0) {
                         while($row_child = $result_child->fetch_assoc()) {
                             echo 
