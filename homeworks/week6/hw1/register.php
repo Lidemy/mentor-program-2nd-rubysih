@@ -28,24 +28,20 @@
 </html>
 <?php
     if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['nickname'])){    //給值判斷
-        if($_POST['username']!=='' && $_POST['password']!=='' && $_POST['nickname']!==''){      //空值判斷
+        if(!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['nickname'])){      //空值判斷
             $username = $_POST['username'];
-            // $password = $_POST['password'];
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $nickname = $_POST['nickname'];
-            //username 或 nickname 沒有重複才可註冊
-            $sql = "SELECT * FROM rubysih_users WHERE username = '" . $username . "' or nickname = '" . $nickname . "'";
-            $result = $conn->query($sql);
-            if ($result->num_rows <= 0) {
-                //insert into db
-                $sql_addUser = "INSERT INTO rubysih_users (username,password,nickname) VALUES ('$username','$password','$nickname')";
-                if ($conn->query($sql_addUser) !== TRUE) {
-                    echo "Error: " . $sql_addUser . "<br>" . $conn->error;
-                }
+
+            //insert into db
+            $stmt_addUser = $conn->prepare("INSERT INTO rubysih_users (username,password,nickname) VALUES (?,?,?)");
+            $stmt_addUser->bind_param("sss", $username, $password, $nickname);
+            if ($stmt_addUser->execute() !== TRUE) {
+                echo "Error: "  . $conn->error;
+                echo '<h1 class="warning">註冊失敗!!</h1>';
+            }else{
                 header('Location: board.php');
-            }else{echo '<h1 class="warning">註冊失敗!</h1>';}
+            }
         }else{echo '<h1 class="warning">註冊失敗!</h1>';}
     }
-
-    
 ?>

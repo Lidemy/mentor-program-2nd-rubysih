@@ -1,9 +1,9 @@
 <?php 
     // connect to db
-    $servername = "localhost";
-    $username = "root";
-    $password = "root";
-    $dbname = "comments";
+    $servername = "";
+    $username = "";
+    $password = "";
+    $dbname = "";
     
     $conn = new mysqli($servername, $username, $password, $dbname);
     $conn->query("SET NAMES 'UTF8'");
