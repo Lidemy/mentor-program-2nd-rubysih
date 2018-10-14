@@ -1,0 +1,18 @@
+body{
+    font-family: Arial, Helvetica,"微軟正黑體";
+}
+.container{
+    border: #000 solid 3px;
+    margin-top: 20px;
+}
+
+.row{
+    background-color: #aaa;
+}
+.row .col{
+    border: #fff 1px solid;
+    text-align: center;
+    color: #fff;
+    line-height: 50px;
+    height: 50px;
+}
