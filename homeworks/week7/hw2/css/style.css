@@ -10,6 +10,7 @@ body{
     border-radius: 10px;
     background-color: #ddd;
     padding: 15px;
+    margin-top: 20px;
 }
 .todo__block .todo__item:nth-child(1){
     display: none;
