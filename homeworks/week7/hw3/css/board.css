@@ -1,0 +1,235 @@
+/* .container{
+    width: 100%;
+    font-size: 16px;
+    margin-top: 70px;
+    font-family: Arial, Helvetica,"微軟正黑體";
+} */
+
+/* common */
+.display__none{
+    display: none !important;
+}
+.warning{
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 0.5rem;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+input[type=text],textarea,input[type=password]{
+    padding: 5px ;
+    border-width: 1.5px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    /* margin: auto; */
+}
+textarea{
+    resize: none;
+}
+/* header */
+header{
+    height: 50px;
+    width: 100%;
+    font-weight: bolder;
+    font-size: 20px;
+    background-color: #006ac6;
+    padding:0 40px;
+    text-align: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}
+header li{
+    display: inline-block;
+    padding: 0 20px;
+    line-height: 50px;
+}
+header a{
+    color: #fff;
+}
+/* btn */
+/* .btn{
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    background-color: #006ac6;
+    border-radius: 3px;
+    position: absolute;
+    display: inline-block;
+    cursor: pointer;
+} */
+/* .btn.delete,.btn.edit{
+    font-size: 16px;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    top: 5px;
+    background-color: #727272;
+} */
+.btn.delete,.btn.edit{
+    float: right;
+}
+/* .btn.delete{
+    right: 10px;
+} */
+.btn.edit{
+    margin-right: 5px;
+}
+/* 主留言 */
+.message__block,.new__message,.block{
+    /* width: 800px; */
+    margin: 20px auto;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 5px; 
+    box-sizing: border-box;
+}
+.info{
+    position: relative;
+}
+.info p{
+    display: block;
+    padding-bottom: 8px;
+}
+.name{
+    font-size: 20px;
+    font-weight: bold;
+    color: #006ac6;
+}
+.time{
+    color: #aaa;
+}
+.content{
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px 20px;
+    position: relative;
+    height: 58px;
+    line-height: 38px;
+}
+
+/* 子留言 */
+.reply__block{
+    margin: 10px 0 10px 40px;
+    padding: 20px;
+    background-color: #e3f0ff;
+    border-radius: 5px;
+
+}
+.reply__block .content{
+    background-color: #f9f9f9;
+}
+.reply__block .info ~ .info{
+    margin-top: 20px;
+}
+
+
+/* 新增留言 */
+.new__message{
+    position: relative;
+    padding-bottom: 58px;
+}
+.new__message input[type=text]{
+    margin-bottom: 10px;
+}
+.btn__submit{
+    position: absolute;
+    bottom: 10px;
+    /* right: calc( 10% + 20px ); */
+    right: 10px;
+}
+.reply__block .new__message{
+    width: auto;
+    background-color: #f9f9f9;
+    border: none;
+    margin: 10px auto 0;
+}
+.reply__block .info{
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px 5px 0 0;
+}
+.reply__block .content{
+    border-radius: 0 0 5px 5px;
+}
+.reply__block .info.self__message,.reply__block .content.self__message{
+    background-color: #fffba0;
+}
+/* 註冊.登入.登出 */
+.block{
+    position: relative;
+    padding-bottom: 58px;
+}
+.block h1{
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* page */
+.page{
+    height: 50px;
+    text-align: center;
+}
+.page span{
+    font-size: 24px;
+    font-weight: bold;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    width: 30px;
+    display: inline-block;
+    /* margin: 5px 10px;
+    padding: 4px; */
+    margin: 0 5px 15px;
+}
+.page a{
+    display: block;
+}
+.page span a:hover{
+    color: #fff;
+    background-color: #006ac6;
+    text-decoration: none
+}
+.page span:hover{
+    background-color: #006ac6;
+}
+.page .now{
+    background-color: #006ac6;
+}
+.page .now a{
+    color: #fff;
+}
+
+/* overwrite bootstrap */
+p{
+    margin-bottom: 0;
+}
+.form-group{
+    margin-bottom: 0;
+}
+
+/*rwd*/
+
+/*** width < 850px ***/
+@media (max-width: 850px){
+    .message__block,.new__message,.block{
+        /* width: 80%; */
+    }
+    input[type=text], textarea, input[type=password]{
+        /* width: 90%; */
+        /* margin: 5px auto; */
+    }
+    .btn__submit{
+        /* right: calc( 5% + 10px ); */
+    }
+}
