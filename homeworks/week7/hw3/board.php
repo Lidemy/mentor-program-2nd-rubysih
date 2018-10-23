@@ -57,7 +57,6 @@
         </div>
     </nav>
    
-    
     <div class="container">
         <?php
             if(isset($_GET['status'])){
@@ -131,97 +130,126 @@
             }else{
                 $pageNow=1;
             }
-            $stmt_parent = $conn->prepare("SELECT messages.id, messages.content, users.nickname, messages.date FROM rubysih_messages as messages LEFT JOIN rubysih_users as users ON messages.users_id = users.id WHERE parent = 0 AND delete_status != 1 ORDER BY date DESC LIMIT ?, ?");
+            //父子留言一起撈出
+            $stmt_message = $conn->prepare("SELECT 
+            p_id,p_content,p_date,p_nickname,
+            messages.id c_id,messages.content c_content,messages.date c_date,
+            users.nickname c_nickname
+            FROM 
+            ( SELECT messages.id p_id,messages.content p_content,messages.date p_date,users.nickname p_nickname
+             FROM rubysih_messages messages LEFT JOIN rubysih_users as users ON messages.users_id = users.id
+             WHERE messages.parent =0 ORDER BY date DESC LIMIT ?,?)
+            parent 
+            LEFT JOIN rubysih_messages messages on messages.parent=p_id
+            LEFT JOIN rubysih_users as users ON messages.users_id = users.id ORDER BY p_date DESC,c_date DESC");
             $first_message = ($pageNow-1)*$pageSize;
             $last_message = $pageNow*$pageSize;
-            $stmt_parent->bind_param("ii", $first_message, $last_message);
-            $stmt_parent->execute();
-            $result_parent = $stmt_parent->get_result();
-            if ($result_parent->num_rows > 0) {
-                while($row_parent = $result_parent->fetch_assoc()) {
+            $stmt_message->bind_param("ii", $first_message, $last_message);
+            $stmt_message->execute();
+            $result_message = $stmt_message->get_result();
 
-
-                    echo
-                    '<div class="message__block">
-                        <div class="info">
-                            <p class="name">' 
-                                . htmlspecialchars($row_parent["nickname"], ENT_QUOTES, "UTF-8")
+            //將撈出的父子留言分別存在兩個陣列
+            $parent_arr = array();
+            $child_arr = array();
+            if ($result_message->num_rows > 0) {
+                while($row_message = $result_message->fetch_assoc()) {
+                    if(checkExist($parent_arr, $row_message["p_id"])){   //確認不重複存父留言
+                        $message = array(
+                            'id' => $row_message["p_id"],
+                            'content' => $row_message["p_content"],
+                            'date' => $row_message["p_date"],
+                            'nickname' => $row_message["p_nickname"]
+                        );
+                        array_push($parent_arr, $message);
+                    }
+                    if(isset($row_message["c_id"])){
+                        $message_child = array(
+                            'id' => $row_message["c_id"],
+                            'content' => $row_message["c_content"],
+                            'date' => $row_message["c_date"],
+                            'nickname' => $row_message["c_nickname"],
+                            'parent' => $row_message["p_id"]
+                        );
+                        array_push($child_arr, $message_child);
+                    }
+                }
+            }
+            for($i=0;$i<count($parent_arr);$i++){ //顯示父留言
+                echo
+                '<div class="message__block">
+                    <div class="info">
+                        <p class="name">' 
+                            . htmlspecialchars($parent_arr[$i]["nickname"], ENT_QUOTES, "UTF-8")
+                        .'</p>
+                        <p class="time">'
+                            . $parent_arr[$i]["date"]
+                        .'</p>
+                    </div>
+                    <div class="content">'
+                        . htmlspecialchars($parent_arr[$i]["content"], ENT_QUOTES, "UTF-8");
+                        if($parent_arr[$i]["nickname"]===$nickname){ //自己的留言可刪除修改
+                            echo '<input type="hidden" name="id" value="'.base64_encode($parent_arr[$i]["id"]).'">
+                            <div class="btn btn-dark delete">刪除</div>
+                            <div class="btn btn-dark edit">編輯</div>';
+                        }
+                    echo '</div>
+                    <div class="reply__block">
+                ';
+                //顯示子留言
+                for($j=0;$j<count($child_arr);$j++){
+                    if($parent_arr[$i]["id"] === $child_arr[$j]["parent"]){
+                        echo 
+                        '<div class="info ';
+                        if($child_arr[$j]["nickname"]===$parent_arr[$i]["nickname"]){
+                            echo 'self__message';
+                        }
+                        echo '">
+                            <p class="name">'
+                                . htmlspecialchars($child_arr[$j]["nickname"], ENT_QUOTES, "UTF-8")
                             .'</p>
                             <p class="time">'
-                                . $row_parent["date"]
+                                . $child_arr[$j]["date"]
                             .'</p>
                         </div>
-                        <div class="content">'
-                            . htmlspecialchars($row_parent["content"], ENT_QUOTES, "UTF-8");
-                            if($row_parent["nickname"]===$nickname){ //自己的留言可刪除修改
-                                echo '<input type="hidden" name="id" value="'.base64_encode($row_parent["id"]).'">
+                        <div class="content ';
+                        if($child_arr[$j]["nickname"]===$parent_arr[$i]["nickname"]){
+                            echo 'self__message';
+                        }
+                        echo '">'
+                            . htmlspecialchars($child_arr[$j]["content"], ENT_QUOTES, "UTF-8");
+                            if($child_arr[$j]["nickname"]===$nickname){ //自己的留言可刪除修改
+                                echo '<input type="hidden" name="id" value="'.base64_encode($child_arr[$j]["id"]).'">
                                 <div class="btn btn-dark delete">刪除</div>
                                 <div class="btn btn-dark edit">編輯</div>';
                             }
-                        echo '</div>
-                        <div class="reply__block">
-                    ';
-                    //撈取子留言
-
-                    $stmt_child = $conn->prepare("SELECT messages.id, messages.content, users.nickname, messages.date FROM rubysih_messages as messages LEFT JOIN rubysih_users as users ON messages.users_id = users.id WHERE parent = ? AND delete_status != 1 ORDER BY date DESC");
-                    $stmt_child->bind_param("i", $row_parent["id"]);
-                    $stmt_child->execute();
-                    $result_child = $stmt_child->get_result();
-                    if ($result_child->num_rows > 0) {
-                        while($row_child = $result_child->fetch_assoc()) {
-                            echo 
-                            '<div class="info ';
-                            if($row_child["nickname"]===$row_parent["nickname"]){
-                                echo 'self__message';
-                            }
-                            echo '">
-                                <p class="name">'
-                                    . htmlspecialchars($row_child["nickname"], ENT_QUOTES, "UTF-8")
-                                .'</p>
-                                <p class="time">'
-                                    . $row_child["date"]
-                                .'</p>
-                            </div>
-                            <div class="content ';
-                            if($row_child["nickname"]===$row_parent["nickname"]){
-                                echo 'self__message';
-                            }
-                            echo '">'
-                                . htmlspecialchars($row_child["content"], ENT_QUOTES, "UTF-8");
-                                if($row_child["nickname"]===$nickname){ //自己的留言可刪除修改
-                                    echo '<input type="hidden" name="id" value="'.base64_encode($row_child["id"]).'">
-                                    <div class="btn btn-dark delete">刪除</div>
-                                    <div class="btn btn-dark edit">編輯</div>';
-                                }
-                            echo '</div>';
-                        }
+                        echo '</div>';
                     }
-                    //子留言-新增留言
-                    echo 
-                            '<div class="new__message">
-                                <form class="js_'.$row_parent["id"].'">
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">暱稱:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="nickname"';
-                                               //有登入就代入nickname
-                                                if(!empty($nickname)){echo 'value="'.$nickname.'"';}
-                                                echo 'readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">內容:</label>
-                                        <div class="col-sm-10">
-                                            <textarea name="content" id="content" cols="30" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="parent" value='.$row_parent["id"].'>
-                                    <input type="submit" value="送出" class="btn btn-primary btn__submit">
-                                </form>
-                            </div>
-                        </div>
-                    </div>';
                 }
+                //子留言-新增留言
+                echo 
+                        '<div class="new__message">
+                            <form class="js_'.$parent_arr[$i]["id"].'">
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">暱稱:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="nickname"';
+                                            //有登入就代入nickname
+                                            if(!empty($nickname)){echo 'value="'.$nickname.'"';}
+                                            echo 'readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">內容:</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="content" id="content" cols="30" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="parent" value='.$parent_arr[$i]["id"].'>
+                                <input type="submit" value="送出" class="btn btn-primary btn__submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>';
             }
         ?>
         <div class="page">
@@ -257,6 +285,16 @@
             return $nowNum;
         }else{
             return $pageNow*10;
+        }
+    }
+    function checkExist($parent_arr,$id){
+        if(!empty($parent_arr) ){
+            if($parent_arr[count($parent_arr)-1]['id'] === $id){
+                return false;
+            }
+            return true;
+        }else{
+            return true;
         }
     }
 ?>
