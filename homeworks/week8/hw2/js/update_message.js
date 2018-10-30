@@ -38,8 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const content = prompt("編輯留言為 : ", "留言內容 ... ");
             if (content == null || content == "" || content == "留言內容 ... ") {
             } else {     
-                console.log(atob(id),'id',id);
-                
                 //set post data object          
                 post_value={
                     edit_id : id,

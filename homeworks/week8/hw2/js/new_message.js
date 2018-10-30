@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 //post to backend
 function addRequest_POST(post_value, parent){  
-    console.log('post1',post_value);
 
     let request = $.ajax({
         url: "new_message.php",

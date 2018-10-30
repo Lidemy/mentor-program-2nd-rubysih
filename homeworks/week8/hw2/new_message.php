@@ -25,7 +25,7 @@
         $stmt_addUser = $conn->prepare("INSERT INTO rubysih_messages (users_id,content,parent) VALUES (?,?,?)");
         $stmt_addUser->bind_param("isi", $users_id, $content, $parent);
         if ($stmt_addUser->execute() !== TRUE) {
-            echo json_encode(array("msg"=>'留言失敗<br/>Error: ' . $conn->error.$name.$users_id. $content. $parent));
+            echo json_encode(array("msg"=>'留言失敗<br/>Error: ' . $conn->error));
         }else{
             $last_id = $conn->insert_id;
             $same_user = false;
