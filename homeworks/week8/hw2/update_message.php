@@ -1,16 +1,30 @@
 <?php
     require_once('conn.php');
 
-    if(isset($_COOKIE["member_id"])){
-        $session_id=$_COOKIE["member_id"];
-        $stmt = $conn->prepare("SELECT users.id  FROM rubysih_users_certificate as users_certificate LEFT JOIN rubysih_users as users ON users_certificate.username = users.username  WHERE users_certificate.session_id=?");
-        $stmt->bind_param("s", $session_id);
+    // if(isset($_COOKIE["member_id"])){
+    //     $session_id=$_COOKIE["member_id"];
+    //     $stmt = $conn->prepare("SELECT users.id  FROM rubysih_users_certificate as users_certificate LEFT JOIN rubysih_users as users ON users_certificate.username = users.username  WHERE users_certificate.session_id=?");
+    //     $stmt->bind_param("s", $session_id);
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
+    //     if ($result->num_rows > 0) {
+    //         $row = $result->fetch_assoc();
+    //         $users_id=$row['id'];
+    //     }
+    // }
+    //todo
+    if(isset($_POST['nickname'])){
+        $stmt = $conn->prepare("SELECT * FROM rubysih_users WHERE nickname = ?");
+        $stmt->bind_param("s", $_POST['nickname']);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $users_id=$row['id'];
         }
+        echo $users_id.'bb';
+    }else{
+        // echo $_SESSION["member_id"].'aa';
     }
 
     //update
@@ -40,4 +54,6 @@
             echo "Error: "  . $conn->error;
         }
     }
+    $stmt->close();
+    $conn->close();
 ?>

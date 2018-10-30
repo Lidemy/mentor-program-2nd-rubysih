@@ -45,6 +45,8 @@
                 $_SESSION['member_id'] = $username;
                 header('Location: index.php');
             }
+            $stmt_addUser->close();
+            $conn->close();
         }else{echo '<h1 class="warning">註冊失敗!</h1>';}
     }
 ?>

@@ -4,8 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if(e.target.classList[2]==='delete'){     
             if (confirm('確定刪除此留言?')) {
                 const id=e.target.parentElement.children[0].value;
+                console.log(atob(id),'id',id);
                 //set post data object
-                const post_value={delete_id : id};//'delete_id='+id;
+                const post_value={
+                    delete_id : id,
+                    nickname : nickname
+                };
                 let parentElement = e.target.parentElement.parentElement;
                 let deleteElementArray=[];
 
@@ -34,9 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const content = prompt("編輯留言為 : ", "留言內容 ... ");
             if (content == null || content == "" || content == "留言內容 ... ") {
             } else {     
+                console.log(atob(id),'id',id);
+                
                 //set post data object          
                 post_value={
                     edit_id : id,
+                    nickname : nickname,
                     content : content
                 };
                 let info_obj = {
@@ -56,7 +63,8 @@ function upadteRrequest_POST(post_value, info_obj){
         data: post_value,
         dataType: "text"
     });
-    request.done(function( ) {
+    request.done(function( result ) {
+        console.log(result);
         if(post_value.delete_id !== undefined){ //delete message
             deleteElement(info_obj.parentElement, info_obj.deleteElementArray);        
         }else{                                  //edit message

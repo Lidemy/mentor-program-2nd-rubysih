@@ -130,20 +130,19 @@
             $stmt_message = $conn->prepare("SELECT 
             p_id,p_content,p_date,p_nickname,
             messages.id c_id,messages.content c_content,messages.date c_date,
-            users.nickname c_nickname
+            users.nickname c_nickname,messages.delete_status c_delete_status 
             FROM 
             ( SELECT messages.id p_id,messages.content p_content,messages.date p_date,users.nickname p_nickname
              FROM rubysih_messages messages LEFT JOIN rubysih_users as users ON messages.users_id = users.id
-             WHERE messages.parent =0 ORDER BY date DESC LIMIT ?,?)
+             WHERE messages.parent = 0 AND messages.delete_status = 0 ORDER BY date DESC LIMIT ?,?)
             parent 
             LEFT JOIN rubysih_messages messages on messages.parent=p_id
             LEFT JOIN rubysih_users as users ON messages.users_id = users.id ORDER BY p_date DESC,c_date DESC");
             $first_message = ($pageNow-1)*$pageSize;
-            $last_message = $pageNow*$pageSize;
-            $stmt_message->bind_param("ii", $first_message, $last_message);
+            $stmt_message->bind_param("ii", $first_message, $pageSize);
             $stmt_message->execute();
             $result_message = $stmt_message->get_result();
-
+            // echo 'page '.$first_message.$last_message;
             //將撈出的父子留言分別存在兩個陣列
             $parent_arr = array();
             $child_arr = array();
@@ -158,7 +157,7 @@
                         );
                         array_push($parent_arr, $message);
                     }
-                    if(isset($row_message["c_id"])){
+                    if(isset($row_message["c_id"]) && $row_message["c_delete_status"] === 0){
                         $message_child = array(
                             'id' => $row_message["c_id"],
                             'content' => $row_message["c_content"],
@@ -240,7 +239,7 @@
                                         <textarea name="content" id="content" cols="30" rows="5"></textarea>
                                     </div>
                                 </div>
-                                <input type="hidden" name="parent" value='.$parent_arr[$i]["id"].'>
+                                <input type="hidden" name="parent" value='.base64_encode($parent_arr[$i]["id"]).'>
                                 <input type="submit" value="送出" class="btn btn-primary btn__submit">
                             </form>
                         </div>
@@ -265,6 +264,7 @@
     <script src="js/update_message.js"></script>
     <script src="js/new_message.js"></script>
     <script>
+        let nickname='<?php echo $nickname;?>';
         //Now page setting
         document.addEventListener('DOMContentLoaded', function () {
             nowPage(<?php echo $pageNow;?>);
