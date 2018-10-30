@@ -44,7 +44,8 @@
                 header('Location: index.php');
 
             }else{echo '<h1 class="warning">登入失敗!</h1>';}
-            
+            $stmt->colse();
         }else{echo '<h1 class="warning">登入失敗!</h1>';}
+        $conn->close();
     }
 ?>
