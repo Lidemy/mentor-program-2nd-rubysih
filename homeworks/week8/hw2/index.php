@@ -284,13 +284,9 @@
         }
     }
     function checkExist($parent_arr,$id){
-        if(!empty($parent_arr) ){
-            if($parent_arr[count($parent_arr)-1]['id'] === $id){
-                return false;
-            }
-            return true;
-        }else{
-            return true;
+        if (empty($parent_arr)) {
+          return true;
         }
-    }
+        return $parent_arr[count($parent_arr)-1]['id'] !== $id;
+      }
 ?>
