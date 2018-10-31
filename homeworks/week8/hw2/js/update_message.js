@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (confirm('確定刪除此留言?')) {
                 const id=e.target.parentElement.children[0].value;
                 //set post data object
-                const post_value={delete_id : id};//'delete_id='+id;
+                const post_value={
+                    delete_id : id
+                };
                 let parentElement = e.target.parentElement.parentElement;
                 let deleteElementArray=[];
 
@@ -56,7 +58,8 @@ function upadteRrequest_POST(post_value, info_obj){
         data: post_value,
         dataType: "text"
     });
-    request.done(function( ) {
+    request.done(function( result ) {
+        console.log(result);
         if(post_value.delete_id !== undefined){ //delete message
             deleteElement(info_obj.parentElement, info_obj.deleteElementArray);        
         }else{                                  //edit message

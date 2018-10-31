@@ -1,17 +1,27 @@
 <?php
+    session_start();  
     require_once('conn.php');
-
-    if(isset($_COOKIE["member_id"])){
-        $session_id=$_COOKIE["member_id"];
-        $stmt = $conn->prepare("SELECT users.id  FROM rubysih_users_certificate as users_certificate LEFT JOIN rubysih_users as users ON users_certificate.username = users.username  WHERE users_certificate.session_id=?");
-        $stmt->bind_param("s", $session_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $users_id=$row['id'];
+    if(isset($_SESSION["member_id"])){
+        $stmt_users = $conn->prepare("SELECT * FROM rubysih_users WHERE username = ?");
+        $stmt_users->bind_param("i", $_SESSION["member_id"]);
+        if ($stmt_users->execute() !== TRUE) {
+            echo json_encode(array("msg"=>'id失敗<br/>Error: ' . $conn->error.$_SESSION["member_id"]));
+        }else{
+            $result_users = $stmt_users->get_result();
+            if ($result_users->num_rows > 0) {
+                $row = $result_users->fetch_assoc();
+                $users_id = $row["id"];
+                // $user_nickname = $row["nickname"];
+            }
         }
+        $stmt_users->close();
     }
+    // if(isset($_POST['nickname'])){
+    //     if($_POST['nickname'] !== $user_nickname){
+    //         echo '操作失敗，你不是本人';
+    //         return;
+    //     }
+    // }
 
     //update
     if(isset($_POST['edit_id'])&&!empty($_POST['edit_id']) && isset($_POST['content'])&&!empty($_POST['content'])){
@@ -40,4 +50,6 @@
             echo "Error: "  . $conn->error;
         }
     }
+    $stmt->close();
+    $conn->close();
 ?>
