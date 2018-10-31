@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 //post to backend
 function addRequest_POST(post_value, parent){  
+    console.log('post1',post_value);
 
     let request = $.ajax({
         url: "new_message.php",
@@ -32,6 +33,8 @@ function addRequest_POST(post_value, parent){
             result_obj.nickname = post_value.nickname;
             result_obj.content = post_value.content;
             appendMessage(result_obj, parent);
+        }else{
+            alert(result_obj.msg);
         }
     });
     request.fail(function( jqXHR, textStatus ) {

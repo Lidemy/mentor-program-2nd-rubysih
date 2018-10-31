@@ -4,11 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if(e.target.classList[2]==='delete'){     
             if (confirm('確定刪除此留言?')) {
                 const id=e.target.parentElement.children[0].value;
-                console.log(atob(id),'id',id);
                 //set post data object
                 const post_value={
-                    delete_id : id,
-                    nickname : nickname
+                    delete_id : id
                 };
                 let parentElement = e.target.parentElement.parentElement;
                 let deleteElementArray=[];
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 //set post data object          
                 post_value={
                     edit_id : id,
-                    nickname : nickname,
                     content : content
                 };
                 let info_obj = {
