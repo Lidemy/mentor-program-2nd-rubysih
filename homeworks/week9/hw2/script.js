@@ -6,7 +6,7 @@ function Stack(){
             list[list.length] = num;
         },
         pop : function(){
-            return list.splice(list.length-1,1);
+            return list.splice(list.length-1,1)[0];
         }
     }
 }
@@ -18,7 +18,7 @@ function Queue(){
             list[list.length] = num;
         },
         pop : function(){
-            return list.splice(0,1);
+            return list.splice(0,1)[0];
         }
     }
 }
