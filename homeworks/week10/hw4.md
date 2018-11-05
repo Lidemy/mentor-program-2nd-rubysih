@@ -12,3 +12,11 @@
 - Data URI 是把檔案用 base64 編碼後，引入網頁中。
     - 優點 : 減少要載入的檔案大小，也減少發 request 的次數。
     - 缺點 : 檔案要更新的話都要重新用 base64 編譯過，且是透過文字方式儲存在網頁檔中，所以沒辦法使用快取存取這樣形式的檔案，每次讀取網頁檔都會重新抓取這些檔案。
+
+- 參考 :
+    - CSS Sprites : 
+        https://kknews.cc/other/aaaxopj.html
+        https://stackoverflow.com/questions/4791807/data-uris-and-caching
+    - Data URI : 
+        https://blog.darkthread.net/blog/data-uri/
+        https://blog.gtwang.org/web-development/minimizing-http-request-using-data-uri/
