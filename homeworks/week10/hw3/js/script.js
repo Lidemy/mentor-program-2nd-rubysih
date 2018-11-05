@@ -1,10 +1,9 @@
 let list = [];
-let finishedList = [];
 $( document ).ready(function() {
     $( '.js__new-todo' ).click(function() {
         const todo = $( '.new__todo input' ).val();
         addTodo(todo);
-        
+        $( '.new__todo input' ).val('');
     });
 
     $( '.js__delete' ).click(function() {
@@ -13,7 +12,7 @@ $( document ).ready(function() {
             return;
         }
         if (confirm('確定刪除選取項目嗎 ? ')) {
-            let index = $('input:checkbox:checked').attr('id');
+            let index = $("input:checkbox:checked").map(function() { return this.id; }).get(); //取得選取的todo id
             deleteTodo(index);
         } 
     });
@@ -24,28 +23,29 @@ $( document ).ready(function() {
             return;
         }
         if (confirm('確定將選取項目標記為已完成嗎 ? ')) {
-            let index = $('input:checkbox:checked').attr('id');
+            let index = $("input:checkbox:checked").map(function() { return this.id; }).get();
             finishTodo(index);
         }
     });
 
 });
 
-const addTodo = (todo)=>{
-    list.push(todo);
+const addTodo = (todo) => {
+    list.push({'todo':todo,'finished':false});
     render();
 }
-const deleteTodo = (index)=>{
-    list.splice(index,1);
-    for(let i=0;i<finishedList.length;i++){
-        if(finishedList[i] === index){
-            finishedList.splice(i,1);
-        }
+const deleteTodo = (index) => {
+    for(let i=0;i<index.length;i++){
+        list.splice(index[i],1,'');
     }
+    list = list.filter(Boolean); //把空字串拿掉
+    console.log('delete',list);
     render();
 }
 const finishTodo = (index) => {
-    finishedList.push(index);
+    for(let i=0;i<index.length;i++){
+        list[index[i]]['finished'] = true;
+    }
     render();
 }
 const render = ()=>{
@@ -53,13 +53,12 @@ const render = ()=>{
     for(let i=0;i<list.length;i++){
         $('.todo__block').append($('.todo__item.templete').clone());
         $('.todo__block .todo__item:eq('+i+')').removeClass('templete');
-        $('.todo__block .todo__item:eq('+i+') label').text(list[i]);
+        $('.todo__block .todo__item:eq('+i+') label').text(list[i]['todo']);
         $('.todo__block .todo__item:eq('+i+') input').attr('id',''+i);
         $('.todo__block .todo__item:eq('+i+') label').attr('for',''+i);
-    }
-    for(let i=0;i<finishedList.length;i++){
-        $('.todo__block .todo__item:eq('+finishedList[i]+')').addClass('finished');
+        if(list[i]['finished']){
+            $('.todo__block .todo__item:eq('+i+')').addClass('finished');
+        }
     }
     console.log(list);
-    console.log(finishedList);
 }
