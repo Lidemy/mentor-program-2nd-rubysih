@@ -1,0 +1,199 @@
+/*  variables*/
+$page-color : #006ac6;
+$self-block-color : #fffdc5;
+$content-border-radius : 5px;
+
+/* common */
+.display__none{
+    display: none !important;
+}
+.warning{
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 0.5rem;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+input[type=text],textarea,input[type=password]{
+    padding: 5px ;
+    border-width: 1.5px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+}
+textarea{
+    resize: none;
+}
+/* header */
+header{
+    height: 50px;
+    width: 100%;
+    font-weight: bolder;
+    font-size: 20px;
+    background-color: $page-color;
+    padding:0 40px;
+    text-align: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    li{
+        display: inline-block;
+        padding: 0 20px;
+        line-height: 50px;
+    }
+    a{
+        color: #fff;
+    }
+}
+/* btn */
+.btn.delete,.btn.edit{
+    float: right;
+}
+.btn.edit{
+    margin-right: 5px;
+}
+/* 主留言 */
+.message__block,.new__message,.block{
+    margin: 20px auto;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: $content-border-radius; 
+    box-sizing: border-box;
+}
+.info{
+    position: relative;
+    p{
+        display: block;
+        padding-bottom: 8px;
+    }
+}
+.name{
+    font-size: 20px;
+    font-weight: bold;
+    color: $page-color;
+}
+.time{
+    color: #aaa;
+}
+.content{
+    background-color: #f2f2f2;
+    border-radius: $content-border-radius;
+    padding: 10px 20px;
+    position: relative;
+}
+
+/* 子留言 */
+.reply__block{
+    margin: 10px 0 10px 40px;
+    padding: 20px;
+    background-color: #e3f0ff;
+    border-radius: $content-border-radius;
+    .content{
+        background-color: #f9f9f9;
+    }
+    .info ~ .info{
+        margin-top: 20px;
+    }
+}
+
+
+/* 新增留言 */
+.new__message{
+    position: relative;
+    padding-bottom: 58px;
+    input[type=text]{
+        margin-bottom: 10px;
+    }
+}
+.btn__submit{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.reply__block{
+    .new__message{
+        width: auto;
+        background-color: #f9f9f9;
+        border: none;
+        margin: 10px auto 0;
+    }
+    .info{
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px 5px 0 0;
+        &.self__message{
+            background-color: $self-block-color;
+        }
+    }
+    .content{
+        border-radius: 0 0 5px 5px;
+        &.self__message{
+            background-color: $self-block-color;
+        }
+    }
+}
+
+/* 註冊.登入.登出 */
+.block{
+    position: relative;
+    padding-bottom: 58px;
+    h1{
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+}
+
+
+/* page */
+.page{
+    height: 50px;
+    text-align: center;
+    span{
+        font-size: 24px;
+        font-weight: bold;
+        border: 1px solid #aaa;
+        border-radius: 3px;
+        width: 30px;
+        display: inline-block;
+        margin: 0 5px 15px;
+        a:hover{
+            color: #fff;
+            background-color: $page-color;
+            text-decoration: none
+        }
+        :hover{
+            background-color: $page-color;
+        }
+    }
+    a{
+        display: block;
+    }
+    .now{
+        background-color: $page-color;
+        a{
+            color: #fff;
+        }
+    }
+}
+
+/* overwrite bootstrap */
+p{
+    margin-bottom: 0;
+}
+.form-group{
+    margin-bottom: 0;
+}
+
+/*rwd*/
+/*** width < 425px ***/
+@media (max-width: 425px){
+    .reply__block{
+        margin-left: 0;
+    }
+}
