@@ -1,0 +1,79 @@
+body{
+    font-size: 18px;
+    font-family: Arial, Helvetica,"微軟正黑體";
+}
+.container{
+    max-width: 680px;
+}
+.todo-list{
+    border: #aaa 3px solid;
+    border-radius: 10px;
+    background-color: #ddd;
+    padding: 15px;
+    margin-top: 20px;
+}
+.todo__item.templete{
+    display: none;
+}
+.todo__block{
+    padding: 15px;
+}
+.todo__item{
+    background-color: #fff;
+    /*reference bootstrap*/
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    margin-bottom: 15px;
+     
+}
+.todo__item.finished{
+    background-color: #ffc5be;
+}
+.new__todo{
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #aaa;
+}
+.new__todo .btn{
+    float: right;
+    width: 100%;
+}
+.btn__row .btn{
+    width: 100%;
+    float: right;
+}
+.btn.js__delete{
+    margin-right: 10px;
+}
+
+/* overwrite bootstrap */
+.form-check-input{
+    margin-left: 0;
+    margin-top: .5rem;
+}
+
+.todo__item label{
+    width: 75%;
+    word-break: break-all;
+    margin-right: 10px;
+}
+
+
+
+
+/*rwd*/
+/*** width < 575px ***/
+@media (max-width: 575px){
+    .new__todo .btn{
+        width: calc(50% - 15px);
+    }
+    .btn__row div:nth-child(1){
+        display:none;
+    }
+    .btn__row div{
+        width: 50%;
+    }
+    .new__todo div:first-child{
+        margin-bottom: 15px;
+    }
+}
