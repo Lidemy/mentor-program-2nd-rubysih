@@ -1,0 +1,51 @@
+body{
+    font-size: 18px;
+    font-family: Arial, Helvetica,"微軟正黑體";
+    line-height: 25px;
+}
+.game{
+    width: 80%;
+    margin: 10px auto;
+}
+.board{
+    display: flex;
+    flex-wrap: wrap;
+    width: 475px;
+    margin: 20px auto;
+    background: #ffd076;
+}
+.btn-again{
+    cursor: pointer;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-top: 20px;
+    background: #d5d5d5;
+}
+.btn-square{
+    width: 25px;
+    height: 25px;
+    background-image: url("../img/cross.png");
+    background-size: cover;
+    position: relative;
+    cursor: pointer;
+
+}
+.btn-square .piece{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    left: calc( 50% - 7.5px);
+    top: calc( 50% - 7.5px);
+    display: none;
+}
+.piece.white{
+    display: block;
+    background: #fff;
+}
+.piece.black{
+    display: block;
+    background: #000;
+}
+
