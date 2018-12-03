@@ -85,23 +85,23 @@ class Game extends Component {
     }
     return false;
   }
-  // handleClick = () => {
-  //   this.setState({
-  //     nowPlayer: 'black',
-  //     winner: '',
-  //     gameover: false,
-  //     black: [],
-  //     white: []
-  //   })
-  // }
+  handleClick = () => {
+    this.setState({
+      nowPlayer: 'black',
+      winner: '',
+      gameover: false,
+      black: [],
+      white: []
+    })
+  }
   render() {
     const {nowPlayer, winner, gameover} = this.state;
     return (
       <div className="game">
         <p>目前輪到: <span >{nowPlayer}</span></p>
         <p>獲勝者: <span >{winner}</span></p>
-        {/* <div className="btn btn-again" onClick={this.handleClick}>重新開始</div> */}
-        <Board size={19} nowPlayer={nowPlayer} onChangePlayer={this.handlePlayer}  onSetHistory={this.handleHistory} gameover={gameover}/>
+        <div className="btn btn-again" onClick={this.handleClick}>重新開始</div>
+        <Board size={19} nowPlayer={nowPlayer} onChangePlayer={this.handlePlayer}  onSetHistory={this.handleHistory} gameover={gameover} black={this.state.black} white={this.state.white}/>
       </div>
     );
   }
