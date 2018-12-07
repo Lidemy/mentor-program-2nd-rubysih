@@ -1,0 +1,112 @@
+body{
+    background: #f9ece9;
+}
+#root .container{
+    /* width: 100%;
+    padding: 0; */
+    max-width: unset;
+}
+textarea{
+    resize: none;
+}
+a:hover{
+    text-decoration: none;
+    color: inherit;
+}
+a{
+    color: #cd5c5c;
+}
+.layout{
+    height: calc( 100vh - 80px - 56px);
+    box-sizing: border-box;
+    margin: 40px 0;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    position: relative;
+}
+
+.layout .title{
+    margin-bottom: 30px;
+    /* text-align: center; */
+}
+
+/* home */
+.home{
+    margin: 0 -15px;
+}
+#contact{
+    background: #fff;
+}
+/* post */
+.post .content{
+    overflow-y: auto;
+    height: 300px;
+    font-size: 20px; 
+    margin-bottom: 30px;
+}
+.post .author{
+    margin-bottom: 20px;
+}
+.post .title{
+    margin-bottom: 15px;
+}
+.btn-block{
+    text-align: right;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+.btn-block .btn{
+    margin-left: 30px;
+}
+.btn-add{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #007bff;
+    color: #fff;
+    font-size: 45px;
+    text-align: center;
+    line-height: 50px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 100;
+}
+/* about us */
+.aboutus{
+    width: 50%;
+    margin: 40px auto;
+}
+
+
+/* bootstrap overwrite */
+.list-group{
+    width: 100%;
+    background: #fff;
+    padding: 18px 30px;
+    margin: 40px 0;
+    border-radius: 15px;
+}
+.list-group-item{
+    transition: 0.3s ;
+}
+.list-group-item:hover{
+    background: #e7e7e7;
+}
+.list-group-item:last-child{
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .aboutus{
+        width: 80%;
+    }
+}
+@media (max-width: 590px) {
+    .aboutus{
+        width: 100%;
+    }
+}
